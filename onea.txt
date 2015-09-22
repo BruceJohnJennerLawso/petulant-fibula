@@ -1,0 +1,39 @@
+If the satellite is in a circular orbit, the force of Gravity acting on it is balanced by the fictitious centripetal force due to its velocity.
+
+Fg = GMm/r^2
+
+where M is Earths mass, m is the satellite mass, and r is the radius of the satellites orbit
+(and gravity constant G)
+
+Fc = mv^2/r
+
+Fg = Fc
+
+GMm/r^2 = mv^2/r
+
+(assuming that the mass of the Earth is so much larger than that of the satellite that the center of mass for the two objects is centered on the Earth)
+
+GM = r*v^2
+
+GM/(r^3) = (v/r)^2
+
+given that angular speed w = v/r
+
+GM/(r^3) = w^2
+
+and since angular speed relates to period like w = 2*pi/T (where T is period)
+
+GM/(r^3) = 4*(pi^2)/(T^2)
+
+r^3 = GM(T^2)/(4*(pi^2) )
+
+and taking the cube root we get
+
+r = (GM(T^2)/(4*(pi^2) )^1/3
+
+if h is the height above the Earths surface, r = h + Re
+
+where Re is the Earths radius
+
+so h = r - Re
+
