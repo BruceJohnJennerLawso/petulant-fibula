@@ -1,0 +1,11 @@
+Solar time measured on Earth follows the motion of the sun, while sidereal time follows the motion of the background stars. If we consider the Earth as a stationary point of reference, the Sun appears to rotate around the Earth once per year regardless of the Earths spin. Due to the direction of the Earths spin, this makes the time for a point on the earths surface to rotate to directly beneath the sun slightly longer each day. A satellite with a period of 24 hr would slowly shift from its proper location above Earths surface, while one with a period of 23.93 hr would always be above the same point on the Earths surface.
+
+given a period of 23.93 hr (86148 s):
+
+altitude = 35773762.3299 m
+
+given a period of 24 hr (86400 s):
+
+altitude = 35855910.1762 m
+
+which means that a satellite orbiting with a period of 23.93 hr would be 82147 m lower than one orbiting at 24 hrr
