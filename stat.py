@@ -1,6 +1,8 @@
 ## stat.py #####################################################################
 ## core shitty statistics module ###############################################
 ################################################################################
+import math
+
 
 ## calls for the 3 basic properties of datasets ################################
 ################################################################################
@@ -9,7 +11,9 @@ def Mean(dataSet):
 	output = 0
 	for cy in dataSet:
 		output += cy
-	output /= len(dataSet)
+	output /= float(len(dataSet))
+	## gotta make sure its a float, otherwise our mean gets rounded like
+	## an integer, which we dont want
 	return output
 	
 def isOdd(value):
@@ -46,7 +50,33 @@ def Mode(dataSet):
 			maxHits = hit
 	return mode
 		
-		
+
+def Variance(dataSet):
+	mean = Mean(dataSet)
+	
+	N = float(len(dataSet))
+	output = 0
+
+	for cy in dataSet:
+		output += ((cy - mean)**2)
+	output /= (N - 1)
+	return output
+	
+def standardDeviation(dataSet):
+	variance = Variance(dataSet)
+	output = math.sqrt(variance)
+	return output
+
+
+def probabilityAt(x, dataSet):
+	mean = Mean(dataSet)
+	variance = Mean(dataSet)
+	deviation = standardDeviation(dataSet)
+
+	output = math.exp( -((x - mean)**2)/(2*variance) )
+	output /= (deviation * math.sqrt(2* math.pi))
+
+	
 ## random value generators for convenience #####################################
 ################################################################################		
 		
@@ -66,13 +96,13 @@ def randomIntegerValue(floor, ceiling):
 
 def testListFunctions():
 	testArray = []
-	for i in range(6):
+	for i in range(randomIntegerValue(5,25)):
 		randam = randomIntegerValue(0,10)
 		testArray.append(randam)
-	print testArray, sorted(testArray)
+	print "array\n-> ", testArray, "\nsorted\n-> ", sorted(testArray)
 	
-	print "Array Mean = %f,\nArray Median = %f,\nArray Mode %d" % (Mean(testArray), Median(testArray), Mode(testArray))
-
+	print "Array length = %d\nArray Mean = %f,\nArray Median = %f,\nArray Mode %d" % (len(testArray), Mean(testArray), Median(testArray), Mode(testArray))
+	print "Array Variance = %f\nArray Standard Deviation = %f" % (Variance(testArray), standardDeviation(testArray))
 
 if(__name__ == "__main__"):
 	
