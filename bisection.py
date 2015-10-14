@@ -101,11 +101,6 @@ def getQuadraticRoot(c, b, a, x_min, x_max):
 				xLow = xMid
 			else:
 				xHigh = xMid				
-			
-			
-			
-			##raise ValueError('hasRoot check failed, x range has no roots')
-			## this shouldnt happen, but sometimes shit happens anyways
 		
 		
 if(__name__ == "__main__"):
