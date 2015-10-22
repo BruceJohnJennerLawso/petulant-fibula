@@ -132,7 +132,7 @@ if(__name__ == "__main__"):
 	## 4 is GAA, 2 is AGF, 10 is AWQI, 11 is AGCI
 	o = data[:,2]
 	for cy in o:
-		cy = standardDeviation(o)
+		cy = 1
 	print "x ",x
 	print "y ",y
 	## create three arrays for the x values, y values, and standard deviations
