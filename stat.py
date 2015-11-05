@@ -67,6 +67,17 @@ def standardDeviation(dataSet):
 	output = math.sqrt(variance)
 	return output
 
+def absoluteMeanUncertainty(dataSet):
+	sigma = standardDeviation(dataSet)
+	output = sigma
+	N = float(len(dataSet))
+	output /= math.sqrt(N)
+	## where our output sigma_{xbar} is the uncertainty +/- around the mean
+	## -> the uncertainty of the mean
+	return output
+		
+
+
 
 def probabilityAt(x, dataSet):
 	mean = Mean(dataSet)
@@ -75,6 +86,9 @@ def probabilityAt(x, dataSet):
 
 	output = math.exp( -((x - mean)**2)/(2*variance) )
 	output /= (deviation * math.sqrt(2* math.pi))
+	return output
+
+
 
 	
 ## random value generators for convenience #####################################
@@ -86,7 +100,6 @@ def randomValue(floor, ceiling):
 		
 def randomIntegerValue(floor, ceiling):
 	return int(randomValue(floor, ceiling+1))
-
 
 
 
