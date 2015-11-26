@@ -1,0 +1,115 @@
+## triple.py ###################################################################
+## triple integral to get the moment of inertia for an object with #############
+## a defined mass distribution #################################################
+################################################################################
+import math
+import numpy as np
+
+def printHeader(text):
+	print "==" + text + "=="
+
+def inputFloat(prompt):
+	while(True):
+		i = raw_input(prompt)
+		try:
+			i = float(i)
+			return i
+		except ValueError:
+			print "\n non float value input, please input a float value"
+			continue
+
+def rx(y, z):
+	output = y**2 + z**2
+	return output
+	
+def rxBound(x):
+	output = x
+	output *= math.exp(-(x**3))
+	return output
+	
+def f(x, y, z):
+	output = rx(y, z)*(1 + y + z**2)
+	return output	
+	
+def integral(intervalSize, xMax):
+	printHeader("Regular Integral")
+	output = 0
+	
+	xRange = np.arange(0, xMax, intervalSize)
+	
+	##for cy in xRange:
+	##	print "%f, (y^2 + z^2) <= %f" % (cy, rxBound(cy))
+	
+	lastOutput = 0
+	
+	for interval in [0.1, 0.09, 0.08, 0.07, 0.06, 0.05, 0.04, 0.03, 0.02, 0.01]:
+						
+		output = 0				
+		for i in range(0, len(xRange)):
+			if(xRange[i] == (xMax/2.0)):
+				print "Halfway Point"
+			radius = math.sqrt(rxBound(xRange[i]))
+			yRange = np.arange(-radius, radius, interval)
+			for j in range(0, len(yRange)):
+				if (abs(yRange[j]) != radius):
+					## the conditional is needed here so that we dont try to
+					## evaluate the edge of the circle, where our zrange will be
+					## empty
+					zSpan = math.sqrt(radius**2 - yRange[j]**2)
+					zRange = np.arange(-zSpan, zSpan, interval)
+					for k in range(0, len(zRange)):
+						output += f(xRange[i], yRange[j], zRange[k])*(interval**3)					
+		print "Integral = %f for interval size %f" % (output, interval),
+		print "output - last output = %f" % (output - lastOutput)
+		lastOutput = output
+	return output
+	
+	
+def integralTrapezoid(intervalSize, xMax):
+	printHeader("Trapezoid Integral")
+	output = 0
+	
+	xRange = np.arange(0, xMax, intervalSize)
+	
+	##for cy in xRange:
+	##	print "%f, (y^2 + z^2) <= %f" % (cy, rxBound(cy))
+	
+	lastOutput = 0
+	
+	for interval in [0.1, 0.09, 0.08, 0.07, 0.06, 0.05, 0.04, 0.03, 0.02, 0.01]:
+						
+		output = 0				
+		for i in range(0, len(xRange)):
+			if(xRange[i] == (xMax/2.0)):
+				print "Halfway Point"
+			radius = math.sqrt(rxBound(xRange[i]))
+			yRange = np.arange(-radius, radius, interval)
+			for j in range(0, len(yRange)-1):
+				if (abs(yRange[j]) != radius):
+					## the conditional is needed here so that we dont try to
+					## evaluate the edge of the circle, where our zrange will be
+					## empty
+					zSpan = math.sqrt(radius**2 - yRange[j]**2)
+					zRange = np.arange(-zSpan, zSpan, interval)
+					for k in range(0, len(zRange)-1):
+						##output += (rx(zRange[k], yRange[j])*(1 + yRange[j] + zRange[k]**2))*(interval**3)
+						sumPart = 0
+						partA = (f(xRange[i], yRange[j], zRange[k]) + f(xRange[i], yRange[j], zRange[k+1]))/2.0
+						partB = (f(xRange[i], yRange[j+1], zRange[k]) + f(xRange[i], yRange[j+1], zRange[k+1]))/2.0
+						
+						partC = (f(xRange[i+1], yRange[j], zRange[k]) + f(xRange[i+1], yRange[j], zRange[k+1]))/2.0
+						partD = (f(xRange[i+1], yRange[j+1], zRange[k]) + f(xRange[i+1], yRange[j+1], zRange[k+1]))/2.0
+						
+						output += ((((partA+partB)/2.0)+((partC+partD)/2.0))/2.0)*(interval**3)	
+		print "Integral = %f for interval size %f" % (output, interval),
+		print "output - last output = %f" % (output - lastOutput)
+		lastOutput = output
+	return output			
+
+if(__name__ == "__main__"):
+	xMax = inputFloat("Input upper bound for x: ")
+	
+	intervalSize = 0.005
+	print "Moment integral around x axis: %f" % integral(intervalSize, xMax)
+	print "Moment trapezoid integral around x axis: %f" % integralTrapezoid(intervalSize, xMax)	
+	## Print out the inertia integral for the two methods
